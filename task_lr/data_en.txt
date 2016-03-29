@@ -1,0 +1,18 @@
+number, color, pedicle, knocking_sound, texture, navel, tactile, density, sugar_content, good_melon
+1, green, curled, voiced_loud, clear, depression, hard_slide, 0.697,0.46, is
+2, black, straight, dull, clear, depression, hard_slide, 0.774,0.376, is
+3, black, curled, voiced_loud, clear, depression, hard_slide, 0.634,0.264, is
+4, green, curled, dull, clear, depression, hard_slide, 0.608,0.318, is
+5, plain, straight, voiced_loud, clear, depression, hard_slide, 0.556,0.215, is
+6, green, slightly_curled, voiced_loud, clear, slightly_concave, soft_sticky, 0.403,0.237, is
+7, dark, slightly_curled, cloud_ring, a_little_paste, slightly_concave, soft_sticky, 0.481,0.149, is
+8, black, slightly_curled, voiced_loud, clear, slightly_concave, hard_slide, 0.437,0.211, is
+9, black, slightly_curled, boring, a_little_paste, slightly_concave, hard_slide, 0.666,0.091, no
+10, green, stiff, crisp, clear, smooth, soft_sticky, 0.243,0.267, no
+11, plain, stiff, crisp, blur, flat, hard_slide, 0.245,0.057, no
+12, plain, straight, voiced_loud, fuzzy, flat, soft_sticky, 0.343,0.099, no
+13, green, slightly_curled, cloud_ring, a_little_paste, depression, hard_slide, 0.639,0.161, no
+14, plain, slightly_curled, boring, a_little_paste, depression, hard_slide, 0.657,0.198, no
+15, black, slightly_curled, voiced_loud, clear, slightly_concave, soft_sticky, 0.36,0.37, no
+16, plain, straight, voiced_loud, fuzzy, flat, hard_slide, 0.593,0.042, no
+17, green, curled, boring, a_little_paste, slightly_concave, hard_slide, 0.719,0.103, no
