@@ -17,6 +17,7 @@ class LR(object):
         self.Y = self.getY()
         self.theta = [0 for i in range(0, self.m)]
         self.b = 0
+        self.empiricalerror = 0
         # print self.originaldata
         print self.encodeddata.values()
         print self.normalizeddata
@@ -24,15 +25,6 @@ class LR(object):
         # print self.m
         # print self.X
         # print self.Y
-
-    def normalize(self):
-        normalizeddata = OrderedDict()
-        for attr, values in self.encodeddata.items():
-            minval = min(values)
-            maxval = max(values)
-            normalizedvalue = [(value - minval) / (maxval - minval) for value in values]
-            normalizeddata[attr] = normalizedvalue
-        return normalizeddata
 
     def getX(self):
         X = []
@@ -67,13 +59,13 @@ class LR(object):
         vres = []
         i = 0
         while i < n:
-            vres.append(varr1[i]*varr2[i])
+            vres.append(varr1[i] * varr2[i])
             i += 1
         return vres
 
     @staticmethod
     def vtimes(scalar=0.0, varr=()):
-        return [ scalar * v for v in varr ]
+        return [scalar * v for v in varr]
 
     @staticmethod
     def vpower(varr, power=2.0):
@@ -121,6 +113,7 @@ class LR(object):
 
     def BGD(self, theta_t=(), b_t=0, threshold=1E-5, eta=1E-3):
         maxvari = 5
+        t = 1
         while maxvari > threshold:
             deltatheta = LR.deltatheta(self.X, self.Y, theta_t, b_t)
             deltab = LR.deltab(self.X, self.Y, theta_t, b_t)
@@ -128,17 +121,21 @@ class LR(object):
             theta_t = LR.vadd(theta_t, [eta * deltatheta_i for deltatheta_i in deltatheta])
             b_t = b_t + eta * deltab
             maxvari = max([abs(deltatheta_i) for deltatheta_i in deltatheta] + [abs(deltab)])
-            print 'deltatheta', deltatheta
-            print 'deltab', deltab
-            print 'theta_t', theta_t
-            print 'b_t', b_t
-            # break
+            t += 1
+            # print 'deltatheta', deltatheta
+            # print 'deltab', deltab
+            # print 'theta_t', theta_t
+            # print 'b_t', b_t
+            if t % 10000 == 0:
+                print ".",
+        print "\nt=", t - 1
         return theta_t, b_t
 
     def momentum(self, theta_t=(), b_t=0, threshold=1E-5, eta=1E-3):
         maxvari = 5
         vtheta_t = [0 for i in range(0, len(theta_t))]
         vb_t = 0
+        t = 1
         while maxvari > threshold:
             deltatheta = LR.deltatheta(self.X, self.Y, theta_t, b_t)
             deltab = LR.deltab(self.X, self.Y, theta_t, b_t)
@@ -149,14 +146,17 @@ class LR(object):
             vb_t = 0.9 * vb_t + eta * deltab
             b_t = b_t + vb_t
             maxvari = max([abs(vtheta_ti) for vtheta_ti in vtheta_t] + [abs(vb_t)])
-            print 'vtheta_t', vtheta_t
-            print 'vb_t', vb_t
-            print 'theta_t', theta_t
-            print 'b_t', b_t
-            # break
+            t += 1
+            # print 'vtheta_t', vtheta_t
+            # print 'vb_t', vb_t
+            # print 'theta_t', theta_t
+            # print 'b_t', b_t
+            if t % 10000 == 0:
+                print ".",
+        print "\nt=", t-1
         return theta_t, b_t
 
-    def adam(self,theta_t=(), b_t=0, beta_m=0.9, beta_v=0.999, eta=1E-3, epsilon=1E-8,threshold=1E-7, m_t=(), v_t=()):
+    def adam(self, theta_t=(), b_t=0, beta_m=0.9, beta_v=0.999, eta=1E-3, epsilon=1E-8, threshold=1E-5, m_t=(), v_t=()):
         varlen = len(theta_t) + 1
         if len(m_t) == 0:
             m_t = [0 for i in range(0, varlen)]
@@ -173,31 +173,87 @@ class LR(object):
             m_t = LR.vadd(m_mometum, LR.vtimes(1 - beta_m, deltavar))
             v_mometum = LR.vtimes(beta_v, v_t)
             v_t = LR.vadd(v_mometum, LR.vtimes(1 - beta_v, LR.vsquare(deltavar)))
-            m_estimate = LR.vtimes(1.0/(1-math.pow(beta_m, t)), m_t)
+            m_estimate = LR.vtimes(1.0 / (1 - math.pow(beta_m, t)), m_t)
             v_estimate = LR.vtimes(1.0 / (1 - math.pow(beta_v, t)), v_t)
-            mvm = LR.matrix_vector_multiplication(LR.vtimes(eta, LR.vpower(LR.vadd(v_estimate, [epsilon for x in v_estimate]), -0.5)), m_estimate)
+            mvm = LR.matrix_vector_multiplication(
+                LR.vtimes(eta, LR.vpower(LR.vadd(v_estimate, [epsilon for x in v_estimate]), -0.5)), m_estimate)
             theta_t = LR.vadd(theta_t, mvm[:-1])
             b_t = b_t + mvm[-1]
             t += 1
             maxvari = max(mvm)
-            print 'm_estimate', m_estimate
-            print 'v_estimate', v_estimate
-            print 'mvm', mvm
-            print 'theta_t', theta_t
-            print 'b_t', b_t
-            print 't', t
+            # print 'm_estimate', m_estimate
+            # print 'v_estimate', v_estimate
+            # print 'mvm', mvm
+            # print 'theta_t', theta_t
+            # print 'b_t', b_t
+            # print 't', t
+            if t % 10000 == 0:
+                print ".",
+        print "\nt=", t-1
         return theta_t, b_t
 
-    def fit(self):
-        # self.theta, self.b = self.BGD(self.theta,self.b)
-        # self.theta, self.b = self.momentum(self.theta, self.b)
-        self.theta, self.b = self.adam(self.theta, self.b)
-        print self.theta
-        print self.b
-        pass
+    def fit(self, threshold=1E-4, eta=1E-3):
+        theta = self.theta
+        b = self.b
+        print "=================================================================="
+        print "BGD"
+        print "=================================================================="
+        self.theta, self.b = self.BGD(theta,b, threshold=threshold, eta=eta)
+        self.empiricalerror = self.empirical_error()
+        print "theta=", self.theta
+        print "b=", self.b
+        print "empiricalerror=", self.empiricalerror
+        print "=================================================================="
+        print ""
+        print ""
+        print "=================================================================="
+        print "Momentum"
+        print "=================================================================="
+        self.theta, self.b = self.momentum(theta, b, threshold=threshold, eta=eta)
+        self.empiricalerror = self.empirical_error()
+        print "theta=", self.theta
+        print "b=", self.b
+        print "empiricalerror=", self.empiricalerror
+        print "=================================================================="
+        print ""
+        print ""
+        print "=================================================================="
+        print "Adam"
+        print "=================================================================="
+        self.theta, self.b = self.adam(theta, b, threshold=threshold, eta=eta)
+        self.empiricalerror = self.empirical_error()
+        print "theta=", self.theta
+        print "b=", self.b
+        print "empiricalerror=", self.empiricalerror
+        print "=================================================================="
+
+    def empirical_error(self):
+        errcnt = 0
+        i = 0
+        while i < len(self.X):
+            xi = self.X[i]
+            yi = self.Y[i]
+            pi = self.logit(xi, self.theta, self.b)
+            print "p_i", pi, "y_i", yi, "x_i", xi
+            if pi < 0.5 and yi == 1:
+                errcnt += 1
+            if pi > 0.5 and yi == 0:
+                errcnt += 1
+            i += 1
+        print "errcnt", errcnt
+        return errcnt
 
     def predict(self):
         pass
+
+    def normalize(self):
+        normalizeddata = OrderedDict()
+        for attr, values in self.encodeddata.items():
+            minval = float(min(values))
+            maxval = float(max(values))
+            normalizedvalue = [(value - minval) / (maxval - minval) for value in values]
+            normalizeddata[attr] = normalizedvalue
+        return normalizeddata
 
     @staticmethod
     def is_numeric(item):
@@ -261,4 +317,4 @@ class LR(object):
 if __name__ == '__main__':
     lr = LR()
     lr.fit()
-    pass
+    lr.empirical_error()
