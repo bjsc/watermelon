@@ -111,7 +111,27 @@ class LR(object):
             # break
         return theta_t, b_t
 
+    def momentum(self, theta_t=(), b_t=0, threshold=1E-5, ita=1E-3):
+        maxvari = 5
+        vtheta_t = [0 for i in range(0,len(theta_t))]
+        vb_t = 0
+        while maxvari > threshold:
+            deltatheta = LR.deltatheta(self.X,self.Y,theta_t,b_t)
+            vtheta_t = LR.vadd([0.9*vtheta_ti for vtheta_ti in vtheta_t],[ita*deltatheta_i for deltatheta_i in deltatheta])
+            theta_t = LR.vadd(theta_t,vtheta_t)
+            deltab = LR.deltab(self.X, self.Y, theta_t, b_t)
+            vb_t = 0.9*vb_t + ita * deltab
+            b_t = b_t + vb_t
+            maxvari = max([abs(vtheta_ti) for vtheta_ti in vtheta_t]+[abs(vb_t)])
+            print 'vtheta_t',vtheta_t
+            print 'vb_t',vb_t
+            print 'theta_t',theta_t
+            print 'b_t',b_t
+            # break
+        return theta_t, b_t
+
     def fit(self):
+        # self.theta, self.b = self.BGD(self.theta,self.b)
         self.theta, self.b = self.BGD(self.theta,self.b)
         print self.theta
         print self.b
