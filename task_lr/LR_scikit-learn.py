@@ -105,7 +105,7 @@ class LR(object):
         return dataframe
 
     def fit(self):
-        self.scikit_lr = linear_model.LogisticRegression()
+        self.scikit_lr = linear_model.LogisticRegression(C=1E5)
         self.scikit_lr.fit(self.X, self.Y)
         print self.scikit_lr.get_params()
         print 'weights:', self.scikit_lr.coef_
@@ -132,4 +132,5 @@ if __name__ == '__main__':
     lr = LR()
     lr.read()
     lr.fit()
+    lr.empirical_error()
     print 'read is done'
