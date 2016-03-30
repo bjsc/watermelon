@@ -7,8 +7,10 @@
 
 
 #Reference:
-1. http://www.chokkan.org/publication/survey/logistic_regression_sgd.html
-
+1. GD Overview:  http://sebastianruder.com/optimizing-gradient-descent/
+2. SGD Implementation: http://www.chokkan.org/publication/survey/logistic_regression_sgd.html
+3. http://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic_path.html
+4. http://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic_path.html
 
 
 

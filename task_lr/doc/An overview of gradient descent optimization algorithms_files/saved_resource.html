@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<!-- saved from url=(0329)http://disqus.com/embed/comments/?base=default&version=85ba7336856f5be9db0e468752c2dad5&f=sebastianruder&t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&s_o=default -->
+<html lang="en" dir="ltr" class="js no-touch localstorage sessionstorage contenteditable use-opacity-transitions"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Disqus Comments</title>
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    
+    <style>
+        html {
+            overflow: hidden;
+        }
+
+        
+    </style>
+
+<link rel="stylesheet" href="./lounge.f668c82e65f78693a6a62a5c7d3e54b8.css"><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="remote/config" src="./config.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common.bundle" src="./common.bundle.9054241a18d1ec2777a52f6dcc96dfb6.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="lounge.bundle" src="./lounge.bundle.b75817c8b9cd25c332ba61b6a5c58c0d.js"></script><style id="css_1458702854860"></style><!--<base target="_parent">--><base href="." target="_parent"><link rel="stylesheet" href="./discovery.449c10a436c997c3eee5afd5021da3a2.css"><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="ga" src="./ga.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="discovery/main" src="./discovery.bundle.188b7afdc0cb75bb665bca3eb0ce9ba7.js"></script></head>
+<body>
+    
+
+    
+    <!--[if lt IE 10]><p style="color: #fff; background-color: #f05f70; padding: 10px; margin-top: 20px;">
+        You're using a browser that Disqus plans to stop supporting soon. For more information, visit our list of 
+        <a href="https://help.disqus.com/customer/portal/articles/466228-which-browsers-does-disqus-work-with-" style="color: #fff; text-decoration: underline;">supported browsers</a>
+        and consider upgrading.
+    </p><![endif]-->
+    <div id="error" style="display:none; text-align: center">
+        <p>We were unable to load Disqus. If you are a moderator please see our <a href="https://docs.disqus.com/help/83/"> troubleshooting guide</a>. </p>
+    </div>
+
+    
+    <script type="text/json" id="disqus-forumData">{"session":{"canModerate":false,"audienceSyncVerified":false,"mustVerify":false,"canReply":true,"mustVerifyEmail":false},"features":{},"forum":{"category":"Tech","description":"","founder":"14938262","twitterName":"","url":"","raw_description":"","guidelines":null,"favicon":{"permalink":"http://disqus.com/api/forums/favicons/sebastianruder.jpg","cache":"//a.disquscdn.com/1457379538/images/favicon-default.png"},"raw_guidelines":null,"language":"en","daysThreadAlive":0,"avatar":{"small":{"permalink":"http://disqus.com/api/forums/avatars/sebastianruder.jpg?size=32","cache":"//a.disquscdn.com/1457379538/images/noavatar32.png"},"large":{"permalink":"http://disqus.com/api/forums/avatars/sebastianruder.jpg?size=92","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png"}},"channel":null,"daysAlive":0,"pk":"3468694","signedUrl":"","settings":{"supportLevel":0,"adsDRNativeEnabled":false,"disable3rdPartyTrackers":false,"adsVideoEnabled":false,"adsProductVideoEnabled":false,"adsPositionTopEnabled":false,"ssoRequired":false,"linkAffiliationEnabled":false,"adsProductLinksThumbnailsEnabled":false,"adsProductStoriesEnabled":false,"organicDiscoveryEnabled":true,"allowMedia":true,"discoveryMax":false,"discoveryLocked":false,"moderatorText":"","adsEnabled":false,"allowAnonPost":false,"hasCustomAvatar":false,"adultContent":false,"promotedDiscoveryEnabled":false,"allowAnonVotes":false,"mustVerify":false,"colorScheme":"auto","adsSettingsLocked":false,"mustVerifyEmail":false,"audienceSyncEnabled":false,"typeface":"auto","adsPositionBottomEnabled":false,"mediaembedEnabled":true,"adsProductLinksEnabled":false,"discoveryThumbnailsEnabled":false,"isVIP":false},"id":"sebastianruder","createdAt":"2015-02-20T16:34:41.181206","name":"Blog"}}</script>
+
+    
+    <script type="text/json" id="disqus-threadData">{"cursor":{"hasPrev":false,"prev":null,"total":15,"hasNext":false,"next":"1:0:0"},"code":0,"response":{"lastModified":1457085653,"posts":[{"forum":"sebastianruder","parent":null,"isApproved":true,"author":{"username":"chandreshmaurya","about":"","name":"Chandresh Maurya","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2324929999999998,"profileUrl":"https://disqus.com/by/chandreshmaurya/","url":"","reputation":1.2324929999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2016-02-20T11:09:31","id":"197442490","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/chandreshmaurya.jpg","cache":"//a.disquscdn.com/uploads/users/19744/2490/avatar32.jpg?1457085604"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/chandreshmaurya.jpg","cache":"//a.disquscdn.com/uploads/users/19744/2490/avatar92.jpg?1457085604","large":{"permalink":"http://disqus.com/api/users/avatars/chandreshmaurya.jpg","cache":"//a.disquscdn.com/uploads/users/19744/2490/avatar92.jpg?1457085604"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Hi,\nNice collection of GD algorithms.\n\nOne small correction. In your Adadelta update paramter rule, in the numerator, \\delta x is computed till time t-1 and not t (verified by Original paper)","createdAt":"2016-02-20T11:11:35","id":"2524821645","thread":"4472949670","depth":0,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Hi,\u003cbr>Nice collection of GD algorithms.\u003c/p>\u003cp>One small correction. In your Adadelta update paramter rule, in the numerator, \\delta x is computed till time t-1 and not t (verified by Original paper)\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2524821645,"isApproved":true,"author":{"username":"sebastianruder","about":"","name":"Sebastian Ruder","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2350759999999998,"profileUrl":"https://disqus.com/by/sebastianruder/","url":"","reputation":1.2350759999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2011-08-03T14:59:30","id":"14938262","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar32.jpg?1450803849"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849","large":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Well spotted! That's not a mistake, though, as I've adapted the paper's notation to fit in with the notation in the rest of the blog post, so that the update is always computed for \\delta_{t+1} based on \\delta_t.","createdAt":"2016-03-03T15:53:19","id":"2549435639","thread":"4472949670","depth":1,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Well spotted! That's not a mistake, though, as I've adapted the paper's notation to fit in with the notation in the rest of the blog post, so that the update is always computed for \\delta_{t+1} based on \\delta_t.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2549435639,"isApproved":true,"author":{"username":"chandreshmaurya","about":"","name":"Chandresh Maurya","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2324929999999998,"profileUrl":"https://disqus.com/by/chandreshmaurya/","url":"","reputation":1.2324929999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2016-02-20T11:09:31","id":"197442490","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/chandreshmaurya.jpg","cache":"//a.disquscdn.com/uploads/users/19744/2490/avatar32.jpg?1457085604"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/chandreshmaurya.jpg","cache":"//a.disquscdn.com/uploads/users/19744/2490/avatar92.jpg?1457085604","large":{"permalink":"http://disqus.com/api/users/avatars/chandreshmaurya.jpg","cache":"//a.disquscdn.com/uploads/users/19744/2490/avatar92.jpg?1457085604"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Aha. I got it. My experience with GD algorithms is that they are not scalable to huge scale problems particularly when dimensions >> samples. They are equally slow compared to off-the-self solvers like LBFGS (see Nesterov's paper EFFICIENCY OF COORDINATE DESCENT METHODS ON\nHUGE-SCALE OPTIMIZATION PROBLEMS). In that scenario, CD methods are well suited.","createdAt":"2016-03-04T10:00:02","id":"2550999158","thread":"4472949670","depth":2,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":true,"message":"\u003cp>Aha. I got it. My experience with GD algorithms is that they are not scalable to huge scale problems particularly when dimensions &gt;&gt; samples. They are equally slow compared to off-the-self solvers like LBFGS (see Nesterov's paper EFFICIENCY OF COORDINATE DESCENT METHODS ON\u003cbr>HUGE-SCALE OPTIMIZATION PROBLEMS). In that scenario, CD methods are well suited.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":null,"isApproved":true,"author":{"username":"ihadanny","about":"","name":"ihadanny","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.234165,"profileUrl":"https://disqus.com/by/ihadanny/","url":"","reputation":1.234165,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2015-02-23T11:11:59","id":"145634690","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/ihadanny.jpg","cache":"//a.disquscdn.com/uploads/users/14563/4690/avatar32.jpg?1453719594"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/ihadanny.jpg","cache":"//a.disquscdn.com/uploads/users/14563/4690/avatar92.jpg?1453719594","large":{"permalink":"http://disqus.com/api/users/avatars/ihadanny.jpg","cache":"//a.disquscdn.com/uploads/users/14563/4690/avatar92.jpg?1453719594"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"thanks a lot Sebastian!\n\nAnother question - coordinate descent methods are much simpler to implement. Are they totally out of fashion/un-competitive with the methods you described?","createdAt":"2016-01-25T10:59:53","id":"2476410076","thread":"4472949670","depth":0,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>thanks a lot Sebastian!\u003c/p>\u003cp>Another question - coordinate descent methods are much simpler to implement. Are they totally out of fashion/un-competitive with the methods you described?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2476410076,"isApproved":true,"author":{"username":"sebastianruder","about":"","name":"Sebastian Ruder","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2350759999999998,"profileUrl":"https://disqus.com/by/sebastianruder/","url":"","reputation":1.2350759999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2011-08-03T14:59:30","id":"14938262","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar32.jpg?1450803849"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849","large":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Coordinate descent (CD) methods seem to be clearly better at solving convex problems, e.g. logistic regression, lasso regression, etc. (see here: https://www.cs.cmu.edu/~ggordon/10725-F12/slides/25-coord-desc.pdf) My intuition would be that in non-convex optimization, evaluating the gradient is usually faster than solving CD's simpler optimization problem and that CD would have a harder time finding minima for non-convex problems.","createdAt":"2016-01-27T09:56:22","id":"2480437865","thread":"4472949670","depth":1,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Coordinate descent (CD) methods seem to be clearly better at solving convex problems, e.g. logistic regression, lasso regression, etc. (see here: \u003ca href=\"https://www.cs.cmu.edu/~ggordon/10725-F12/slides/25-coord-desc.pdf)\" rel=\"nofollow\">https://www.cs.cmu.edu/~ggordo...\u003c/a> My intuition would be that in non-convex optimization, evaluating the gradient is usually faster than solving CD's simpler optimization problem and that CD would have a harder time finding minima for non-convex problems.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":null,"isApproved":true,"author":{"username":"filippobianchi","about":"","name":"filippo bianchi","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.232124,"profileUrl":"https://disqus.com/by/filippobianchi/","url":"","reputation":1.232124,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2015-12-23T13:11:38","id":"188954862","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/filippobianchi.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar32.png"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/filippobianchi.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png","large":{"permalink":"http://disqus.com/api/users/avatars/filippobianchi.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"There is a typo in the formula for the update of the second order momentum in Adam. \\Beta_1 should be replaced with \\Beta_2. Also, at the beginning there is another typo \"Elasic Averaging SGD\". Nice post by the way, cheers.","createdAt":"2016-01-22T14:34:55","id":"2471822523","thread":"4472949670","depth":0,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>There is a typo in the formula for the update of the second order momentum in Adam. \\Beta_1 should be replaced with \\Beta_2. Also, at the beginning there is another typo \"Elasic Averaging SGD\". Nice post by the way, cheers.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2471822523,"isApproved":true,"author":{"username":"sebastianruder","about":"","name":"Sebastian Ruder","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2350759999999998,"profileUrl":"https://disqus.com/by/sebastianruder/","url":"","reputation":1.2350759999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2011-08-03T14:59:30","id":"14938262","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar32.jpg?1450803849"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849","large":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Thanks for pointing those out. :) Corrected them.","createdAt":"2016-01-24T12:57:04","id":"2474942849","thread":"4472949670","depth":1,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Thanks for pointing those out. :) Corrected them.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":null,"isApproved":true,"author":{"username":"artsiomablavatski","about":"","name":"Artsiom Ablavatski","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.232124,"profileUrl":"https://disqus.com/by/artsiomablavatski/","url":"","reputation":1.232124,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2016-01-21T10:54:49","id":"192993902","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/artsiomablavatski.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar32.png"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/artsiomablavatski.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png","large":{"permalink":"http://disqus.com/api/users/avatars/artsiomablavatski.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Sebastian, awesome review! Thank you a lot!","createdAt":"2016-01-21T10:55:47","id":"2469732177","thread":"4472949670","depth":0,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Sebastian, awesome review! Thank you a lot!\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":null,"isApproved":true,"author":{"username":"kolbasinvladyslav","about":"","name":"Kolbasin Vladyslav","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2324929999999998,"profileUrl":"https://disqus.com/by/kolbasinvladyslav/","url":"","reputation":1.2324929999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2016-01-20T17:24:26","id":"192901034","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/kolbasinvladyslav.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar32.png"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/kolbasinvladyslav.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png","large":{"permalink":"http://disqus.com/api/users/avatars/kolbasinvladyslav.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Great review! But what about conjugate gradient methods?","createdAt":"2016-01-20T17:24:37","id":"2468496590","thread":"4472949670","depth":0,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Great review! But what about conjugate gradient methods?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2468496590,"isApproved":true,"author":{"username":"ihadanny","about":"","name":"ihadanny","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.234165,"profileUrl":"https://disqus.com/by/ihadanny/","url":"","reputation":1.234165,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2015-02-23T11:11:59","id":"145634690","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/ihadanny.jpg","cache":"//a.disquscdn.com/uploads/users/14563/4690/avatar32.jpg?1453719594"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/ihadanny.jpg","cache":"//a.disquscdn.com/uploads/users/14563/4690/avatar92.jpg?1453719594","large":{"permalink":"http://disqus.com/api/users/avatars/ihadanny.jpg","cache":"//a.disquscdn.com/uploads/users/14563/4690/avatar92.jpg?1453719594"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"agree, thanks a lot Sebastian! \n\nAnother question - coordinate descent methods are much simpler to implement. Are they totally out of fashion/un-competitive with the methods you described?","createdAt":"2016-01-24T12:13:29","id":"2474907333","thread":"4472949670","depth":1,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>agree, thanks a lot Sebastian!\u003c/p>\u003cp>Another question - coordinate descent methods are much simpler to implement. Are they totally out of fashion/un-competitive with the methods you described?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2468496590,"isApproved":true,"author":{"username":"sebastianruder","about":"","name":"Sebastian Ruder","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2350759999999998,"profileUrl":"https://disqus.com/by/sebastianruder/","url":"","reputation":1.2350759999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2011-08-03T14:59:30","id":"14938262","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar32.jpg?1450803849"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849","large":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Thanks! Good point. From my understanding, conjugate gradient (CG) methods seem to be similarly motivated as momentum, i.e. accelerating convergence by reducing oscillation, but seem to be less robust and require more storage and are thus less often used in the literature. Do correct me if I'm wrong or if there are more recent CG-based approaches competitive with one of the SGD optimizers.","createdAt":"2016-01-20T20:31:53","id":"2468810073","thread":"4472949670","depth":1,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Thanks! Good point. From my understanding, conjugate gradient (CG) methods seem to be similarly motivated as momentum, i.e. accelerating convergence by reducing oscillation, but seem to be less robust and require more storage and are thus less often used in the literature. Do correct me if I'm wrong or if there are more recent CG-based approaches competitive with one of the SGD optimizers.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2468810073,"isApproved":true,"author":{"username":"kolbasinvladyslav","about":"","name":"Kolbasin Vladyslav","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2324929999999998,"profileUrl":"https://disqus.com/by/kolbasinvladyslav/","url":"","reputation":1.2324929999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2016-01-20T17:24:26","id":"192901034","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/kolbasinvladyslav.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar32.png"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/kolbasinvladyslav.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png","large":{"permalink":"http://disqus.com/api/users/avatars/kolbasinvladyslav.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"As I know  BFGS & Limited-memory BFGS are most powerful and used in practice methods from second-order methods.","createdAt":"2016-01-21T17:29:26","id":"2470288304","thread":"4472949670","depth":2,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>As I know  BFGS &amp; Limited-memory BFGS are most powerful and used in practice methods from second-order methods.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2468810073,"isApproved":true,"author":{"username":"kshitijlauria","about":"","name":"Kshitij Lauria","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.232124,"profileUrl":"https://disqus.com/by/kshitijlauria/","url":"","reputation":1.232124,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2016-01-21T12:05:25","id":"193000211","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/kshitijlauria.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar32.png"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/kshitijlauria.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png","large":{"permalink":"http://disqus.com/api/users/avatars/kshitijlauria.jpg","cache":"//a.disquscdn.com/1457379538/images/noavatar92.png"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"CG is motivated by second-order methods eg. Newton's method. \n\nSecond-order methods incorporate the second-derivative when taking each step, and therefore converge after much fewer steps. The problem is, computing and storing Hessian matrices is prohibitive for large datasets. \n\nCG solves this problem by expressing all uses of the Hessian matrix in terms of its product with a given vector. This Hessian-vector product can be computed (actually, approximated) using two directional derivative computations (ie. backpropagations). \n\nIn summary: second-order methods are much more well-motivated than the momentum heuristic; CG methods approximate them using directional derivatives alone.\n\nSearch for Hessian-free neural network learning.","createdAt":"2016-01-21T12:05:30","id":"2469795773","thread":"4472949670","depth":2,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>CG is motivated by second-order methods eg. Newton's method.\u003c/p>\u003cp>Second-order methods incorporate the second-derivative when taking each step, and therefore converge after much fewer steps. The problem is, computing and storing Hessian matrices is prohibitive for large datasets.\u003c/p>\u003cp>CG solves this problem by expressing all uses of the Hessian matrix in terms of its product with a given vector. This Hessian-vector product can be computed (actually, approximated) using two directional derivative computations (ie. backpropagations).\u003c/p>\u003cp>In summary: second-order methods are much more well-motivated than the momentum heuristic; CG methods approximate them using directional derivatives alone.\u003c/p>\u003cp>Search for Hessian-free neural network learning.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":null,"isApproved":true,"author":{"username":"dmitrytuzoff","about":"","name":"Dmitry Tuzoff","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2339689999999999,"profileUrl":"https://disqus.com/by/dmitrytuzoff/","url":"","reputation":1.2339689999999999,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2015-02-11T19:01:10","id":"144078733","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/dmitrytuzoff.jpg","cache":"//a.disquscdn.com/uploads/users/14407/8733/avatar32.jpg?1453290352"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/dmitrytuzoff.jpg","cache":"//a.disquscdn.com/uploads/users/14407/8733/avatar92.jpg?1453290352","large":{"permalink":"http://disqus.com/api/users/avatars/dmitrytuzoff.jpg","cache":"//a.disquscdn.com/uploads/users/14407/8733/avatar92.jpg?1453290352"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Great review! What about Polyak averaging? Nando de Freitas seems to be a big apologist of it.","createdAt":"2016-01-20T11:45:50","id":"2467988458","thread":"4472949670","depth":0,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Great review! What about Polyak averaging? Nando de Freitas seems to be a big apologist of it.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"forum":"sebastianruder","parent":2467988458,"isApproved":true,"author":{"username":"sebastianruder","about":"","name":"Sebastian Ruder","disable3rdPartyTrackers":false,"isPowerContributor":false,"isAnonymous":false,"rep":1.2350759999999998,"profileUrl":"https://disqus.com/by/sebastianruder/","url":"","reputation":1.2350759999999998,"location":"","isPrivate":false,"signedUrl":"","isPrimary":true,"joinedAt":"2011-08-03T14:59:30","id":"14938262","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar32.jpg?1450803849"},"isCustom":true,"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849","large":{"permalink":"http://disqus.com/api/users/avatars/sebastianruder.jpg","cache":"//a.disquscdn.com/uploads/users/1493/8262/avatar92.jpg?1450803849"}}},"media":[],"isDeleted":false,"isFlagged":false,"dislikes":0,"raw_message":"Thanks! Definitely a good addition! I didn't know Nando de Freitas was a proponent of it. I haven't seen Polyak averaging or related methods like stochastic average gradient or stochastic variance reduced gradient being applied to neural networks, which is the main reason why I didn't include them here.","createdAt":"2016-01-20T14:53:13","id":"2468230430","thread":"4472949670","depth":1,"numReports":0,"isDeletedByAuthor":false,"likes":0,"isEdited":false,"message":"\u003cp>Thanks! Definitely a good addition! I didn't know Nando de Freitas was a proponent of it. I haven't seen Polyak averaging or related methods like stochastic average gradient or stochastic variance reduced gradient being applied to neural networks, which is the main reason why I didn't include them here.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0}],"thread":{"feed":"https://sebastianruder.disqus.com/an_overview_of_gradient_descent_algorithms/latest.rss","identifiers":[],"dislikes":0,"likes":0,"message":"","id":"4472949670","isDeleted":false,"category":"3538170","author":"14938262","userScore":0,"userSubscription":false,"isSpam":false,"signedLink":"http://disq.us/?url=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&key=piV7ll97XtXVNhC-5_3esA","createdAt":"2016-01-08T12:41:06","hasStreaming":false,"raw_message":"","isClosed":false,"link":"http://sebastianruder.com/optimizing-gradient-descent/","slug":"an_overview_of_gradient_descent_algorithms","forum":"sebastianruder","clean_title":"An overview of gradient descent algorithms","posts":15,"moderators":[14938262],"title":"An overview of gradient descent algorithms","highlightedPost":null}},"order":"popular"}</script>
+
+    
+
+    <div id="fixed-content"></div>
+
+
+    
+        
+        <!--[if lte IE 8]>
+<script src="//a.disquscdn.com/1457379538/build/vendor/ie8.js"></script>
+<![endif]-->
+<!--[if IE 9]>
+<script src="//a.disquscdn.com/1457379538/build/vendor/ie9.js"></script>
+<![endif]-->
+
+        
+<script type="text/json" id="disqus-urls">{
+    "root":"//disqus.com",
+    "next":"//a.disquscdn.com/next/current/embed"
+}</script>
+
+        <script src="./lounge.load.85ba7336856f5be9db0e468752c2dad5.js" id="bootstrap-script" data-app="lounge" async=""></script>
+    
+
+
+<div id="layout" data-tracking-area="layout">
+
+<div id="onboard" data-tracking-area="onboard"></div>
+
+<div id="highlighted-post" data-tracking-area="highlighted" class="highlighted-post" style="display: none;"></div>
+
+<div id="global-alert"></div>
+
+<header id="main-nav" data-tracking-area="main-nav">
+<nav class="nav nav-primary">
+<ul>
+<li class="tab-conversation active" data-role="post-count"><a class="publisher-nav-color">
+<span class="comment-count">
+15 comments
+</span>
+
+<span class="comment-count-placeholder">
+Comments
+</span>
+</a>
+</li>
+<li class="tab-community">
+<a href="https://disqus.com/home/forums/sebastianruder/" class="publisher-nav-color" data-action="community-sidebar" data-forum="sebastianruder" id="community-tab">
+<span class="community-name">
+<strong>Blog</strong>
+
+</span>
+
+<strong class="community-name-placeholder">Community</strong>
+</a>
+</li>
+<li class="dropdown user-menu" data-role="logout"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="dropdown-toggle" data-toggle="dropdown">
+<span class="dropdown-toggle-wrapper">
+
+<span>
+Login
+</span>
+
+</span> <span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+
+
+<li>
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="auth:disqus">Disqus</a>
+</li>
+<li>
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="auth:facebook">Facebook</a>
+</li>
+<li>
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="auth:twitter">Twitter</a>
+</li>
+<li>
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="auth:google">Google</a>
+</li>
+
+
+
+</ul>
+</li>
+<li class="notification-menu unread" data-role="notification-menu"><a href="https://disqus.com/home/inbox/" class="notification-container" data-action="home" data-home-path="home/inbox/">
+<span class="notification-icon icon-comment" aria-hidden=""></span>
+<span class="notification-count" data-role="notification-count">1</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+
+<section id="conversation" data-role="main" data-tracking-area="main">
+<div class="nav nav-secondary" data-tracking-area="secondary-nav">
+<ul>
+<li id="recommend-button" class="recommend dropdown">
+<div class="thread-likes"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="recommend" title="Recommend this discussion" class="dropdown-toggle ">
+<span class="icon-heart"></span>
+<span class="label label-default">Recommend</span>
+<span class="label label-recommended">Recommended</span>
+</a>
+<ul class="dropdown-menu coachmark">
+<li>
+<h2>Discussion Recommended!</h2>
+<p>Recommending means this is a discussion worth sharing. It gets shared to your followers' Disqus feeds, and gives the creator kudos!</p>
+<a href="http://disqus.com/home/?utm_source=disqus_embed&amp;utm_content=recommend_btn" class="btn btn-primary" target="_blank">
+ Find More Discussions 
+</a>
+</li>
+</ul>
+</div></li>
+<li id="thread-share-menu" class="dropdown share-menu hidden-sm"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="dropdown-toggle" data-toggle="dropdown" title="Share">
+<span class="icon-export"></span>
+<span class="label">Share</span>
+</a>
+<ul class="share-menu dropdown-menu">
+<li class="share">Share this discussion on
+<ul>
+<li class="twitter">
+<a data-action="share:twitter" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#">Twitter</a>
+</li>
+<li class="facebook">
+<a data-action="share:facebook" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#">Facebook</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li data-role="post-sort" class="dropdown sorting pull-right">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="dropdown-toggle" data-toggle="dropdown">
+Sort by Best
+
+
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu pull-right">
+<li class="selected">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="sort" data-sort="popular">Best<i aria-hidden="true" class="icon-checkmark"></i></a>
+</li>
+
+<li>
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="sort" data-sort="desc">Newest<i aria-hidden="true" class="icon-checkmark"></i></a>
+</li>
+
+<li>
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="sort" data-sort="asc">Oldest<i aria-hidden="true" class="icon-checkmark"></i></a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div id="posts">
+<div id="form"><form class="reply">
+<div class="postbox">
+<div role="alert"></div>
+<div class="avatar">
+<span class="user">
+<img data-role="user-avatar" src="./noavatar92.4549c5353ccf103d32a8b81a856576ed.png" alt="Avatar">
+</span>
+</div>
+
+<div class="textarea-wrapper" data-role="textarea" dir="auto"><div><span class="placeholder">Join the discussion…</span><div class="textarea" tabindex="0" role="textbox" aria-multiline="true" contenteditable="PLAINTEXT-ONLY" data-role="editable" aria-label="Join the discussion…" style="overflow: auto; max-height: 350px;"><p><br></p></div><div style="display: none;"><ul class="suggestions">
+<li class="header">
+<h5>in this conversation</h5>
+</li>
+</ul>
+</div></div>
+<div data-role="drag-drop-placeholder" class="media-drag-hover" style="display: none">
+<div class="drag-text">
+⬇ Drag and drop your images here to upload them.
+</div>
+</div>
+<div class="media-preview empty" data-role="media-preview"><ul data-role="media-legacy-list"></ul>
+<ul data-role="media-progress-list"></ul>
+<ul data-role="media-rich-list"></ul>
+<div class="media-expanded empty" data-role="media-preview-expanded">
+<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-role="media-preview-expanded-image" alt="Media preview placeholder">
+</div>
+</div>
+<div class="edit-alert" role="postbox-alert"></div>
+<div class="post-actions">
+<ul class="wysiwyg">
+<li data-role="media-uploader"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" tabindex="-1" data-action="attach" class="attach" title="Upload Images"><span>Attach</span></a>
+<input type="file" data-role="media-upload" tabindex="-1" accept="image/*">
+</li>
+</ul>
+</div>
+</div>
+
+<div data-role="login-form"><div><section class="auth-section logged-out">
+<div class="connect">
+<h6>Log in with</h6>
+<ul data-role="login-menu" class="services login-buttons">
+
+
+<li class="auth-disqus">
+<button type="button" data-action="auth:disqus" title="Disqus"><i class="icon-disqus"></i></button>
+</li>
+<li class="auth-facebook">
+<button type="button" data-action="auth:facebook" title="Facebook"><i class="icon-facebook-circle"></i></button>
+</li>
+<li class="auth-twitter">
+<button type="button" data-action="auth:twitter" title="Twitter"><i class="icon-twitter-circle"></i></button>
+</li>
+<li class="auth-google">
+<button type="button" data-action="auth:google" title="Google"><i class="icon-google-plus-circle"></i></button>
+</li>
+</ul>
+</div>
+<div class="guest">
+<h6 class="guest-form-title">
+<span class="register-text"> or sign up with Disqus </span>
+<span class="guest-text"> or pick a name </span>
+</h6>
+
+<div class="what-is-disqus help-icon">
+<div id="rules" class="tooltip show">
+<h3>Disqus is a discussion network</h3>
+<ul>
+<li><span>Disqus never moderates or censors. The rules on this community are its own.</span></li>
+<li><span>Your email is safe with us. It's only used for moderation and optional notifications.</span></li>
+<li><span>Don't be a jerk or do anything illegal. Everything is easier that way.</span></li>
+</ul>
+<p class="clearfix"><a href="https://docs.disqus.com/kb/terms-and-policies/" class="btn btn-small" target="_blank">Read full terms and conditions</a></p>
+</div>
+</div>
+
+<p class="input-wrapper">
+<input dir="auto" type="text" placeholder="Name" name="display_name" id="view54_display_name" maxlength="30">
+</p>
+
+<div class="guest-details " data-role="guest-details">
+<p class="input-wrapper">
+<input dir="auto" type="email" placeholder="Email" name="email" id="view54_email">
+</p>
+
+<p class="input-wrapper">
+<input dir="auto" type="password" class="register-text" placeholder="Password" name="password" id="view54_password">
+</p>
+
+<div class="acceptance-wrapper register-text">
+By signing up, you agree to the Disqus <a target="_blank" href="https://help.disqus.com/customer/portal/articles/1753105-basic-rules-for-disqus-powered-profiles-and-discussions">Basic Rules</a>, <a target="_blank" href="https://help.disqus.com/customer/portal/articles/466260-terms-of-service">Terms of Service</a>, and <a target="_blank" href="https://help.disqus.com/customer/portal/articles/466259-privacy-policy">Privacy Policy</a>.
+</div>
+<div class="acceptance-wrapper guest-text">
+By posting, you agree to the Disqus <a target="_blank" href="https://help.disqus.com/customer/portal/articles/1753105-basic-rules-for-disqus-powered-profiles-and-discussions">Basic Rules</a>, <a target="_blank" href="https://help.disqus.com/customer/portal/articles/466260-terms-of-service">Terms of Service</a>, and <a target="_blank" href="https://help.disqus.com/customer/portal/articles/466259-privacy-policy">Privacy Policy</a>.
+</div>
+
+<input type="checkbox" name="author-guest" style="display:none">
+
+<div class="proceed" data-role="submit-btn-container">
+<button type="submit" class="btn submit" aria-label="Next"><span class="icon-proceed"></span><div class="spinner"></div></button>
+</div>
+</div>
+</div>
+</section>
+
+</div></div>
+</div>
+</form></div>
+
+<button class="alert realtime" style="display: none" data-role="realtime-notification">
+</button>
+
+<div id="no-posts" style="display:none"></div>
+
+<ul id="post-list" class="post-list"><li class="post" id="post-2524821645"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/chandreshmaurya/" class="user" data-action="profile" data-username="chandreshmaurya">
+<img data-role="user-avatar" data-user="197442490" src="./avatar92.jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/chandreshmaurya/" data-action="profile" data-username="chandreshmaurya" data-role="username">Chandresh Maurya</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2524821645" data-role="relative-time" class="time-ago" title="Saturday, February 20, 2016 7:11 PM">a month ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Hi,<br>Nice collection of GD algorithms.</p><p>One small correction. In your Adadelta update paramter rule, in the numerator, \delta x is computed till time t-1 and not t (verified by Original paper)</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2524821645">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2524821645">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"><li class="post" id="post-2549435639"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/sebastianruder/" class="user" data-action="profile" data-username="sebastianruder">
+<img data-role="user-avatar" data-user="14938262" src="./avatar92(1).jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/sebastianruder/" data-action="profile" data-username="sebastianruder" data-role="username">Sebastian Ruder</a></span>
+<span class="badge moderator">Mod</span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2524821645" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Chandresh Maurya</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2549435639" data-role="relative-time" class="time-ago" title="Thursday, March 3, 2016 11:53 PM">19 days ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Well spotted! That's not a mistake, though, as I've adapted the paper's notation to fit in with the notation in the rest of the blog post, so that the update is always computed for \delta_{t+1} based on \delta_t.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2549435639">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2549435639">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"><li class="post" id="post-2550999158"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/chandreshmaurya/" class="user" data-action="profile" data-username="chandreshmaurya">
+<img data-role="user-avatar" data-user="197442490" src="./avatar92.jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/chandreshmaurya/" data-action="profile" data-username="chandreshmaurya" data-role="username">Chandresh Maurya</a></span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2549435639" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Sebastian Ruder</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2550999158" data-role="relative-time" class="time-ago" title="Friday, March 4, 2016 6:00 PM">19 days ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Aha. I got it. My experience with GD algorithms is that they are not scalable to huge scale problems particularly when dimensions &gt;&gt; samples. They are equally slow compared to off-the-self solvers like LBFGS (see Nesterov's paper EFFICIENCY OF COORDINATE DESCENT METHODS ON<br>HUGE-SCALE OPTIMIZATION PROBLEMS). In that scenario, CD methods are well suited.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2550999158">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2550999158">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"></ul>
+
+</li></ul>
+
+</li></ul>
+
+</li><li class="post" id="post-2476410076"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/ihadanny/" class="user" data-action="profile" data-username="ihadanny">
+<img data-role="user-avatar" data-user="145634690" src="./avatar92(2).jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/ihadanny/" data-action="profile" data-username="ihadanny" data-role="username">ihadanny</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2476410076" data-role="relative-time" class="time-ago" title="Monday, January 25, 2016 6:59 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>thanks a lot Sebastian!</p><p>Another question - coordinate descent methods are much simpler to implement. Are they totally out of fashion/un-competitive with the methods you described?</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2476410076">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2476410076">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"><li class="post" id="post-2480437865"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/sebastianruder/" class="user" data-action="profile" data-username="sebastianruder">
+<img data-role="user-avatar" data-user="14938262" src="./avatar92(1).jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/sebastianruder/" data-action="profile" data-username="sebastianruder" data-role="username">Sebastian Ruder</a></span>
+<span class="badge moderator">Mod</span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2476410076" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> ihadanny</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2480437865" data-role="relative-time" class="time-ago" title="Wednesday, January 27, 2016 5:56 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Coordinate descent (CD) methods seem to be clearly better at solving convex problems, e.g. logistic regression, lasso regression, etc. (see here: <a href="https://www.cs.cmu.edu/~ggordon/10725-F12/slides/25-coord-desc.pdf)" rel="nofollow">https://www.cs.cmu.edu/~ggordo...</a> My intuition would be that in non-convex optimization, evaluating the gradient is usually faster than solving CD's simpler optimization problem and that CD would have a harder time finding minima for non-convex problems.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2480437865">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2480437865">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"></ul>
+
+</li></ul>
+
+</li><li class="post" id="post-2471822523"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/filippobianchi/" class="user" data-action="profile" data-username="filippobianchi">
+<img data-role="user-avatar" data-user="188954862" src="./noavatar92.png" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/filippobianchi/" data-action="profile" data-username="filippobianchi" data-role="username">filippo bianchi</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2471822523" data-role="relative-time" class="time-ago" title="Friday, January 22, 2016 10:34 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>There is a typo in the formula for the update of the second order momentum in Adam. \Beta_1 should be replaced with \Beta_2. Also, at the beginning there is another typo "Elasic Averaging SGD". Nice post by the way, cheers.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2471822523">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2471822523">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"><li class="post" id="post-2474942849"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/sebastianruder/" class="user" data-action="profile" data-username="sebastianruder">
+<img data-role="user-avatar" data-user="14938262" src="./avatar92(1).jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/sebastianruder/" data-action="profile" data-username="sebastianruder" data-role="username">Sebastian Ruder</a></span>
+<span class="badge moderator">Mod</span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2471822523" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> filippo bianchi</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2474942849" data-role="relative-time" class="time-ago" title="Sunday, January 24, 2016 8:57 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Thanks for pointing those out. :) Corrected them.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2474942849">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2474942849">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"></ul>
+
+</li></ul>
+
+</li><li class="post" id="post-2469732177"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/artsiomablavatski/" class="user" data-action="profile" data-username="artsiomablavatski">
+<img data-role="user-avatar" data-user="192993902" src="./noavatar92.png" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/artsiomablavatski/" data-action="profile" data-username="artsiomablavatski" data-role="username">Artsiom Ablavatski</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2469732177" data-role="relative-time" class="time-ago" title="Thursday, January 21, 2016 6:55 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Sebastian, awesome review! Thank you a lot!</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2469732177">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2469732177">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"></ul>
+
+</li><li class="post" id="post-2468496590"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/kolbasinvladyslav/" class="user" data-action="profile" data-username="kolbasinvladyslav">
+<img data-role="user-avatar" data-user="192901034" src="./noavatar92.png" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/kolbasinvladyslav/" data-action="profile" data-username="kolbasinvladyslav" data-role="username">Kolbasin Vladyslav</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468496590" data-role="relative-time" class="time-ago" title="Thursday, January 21, 2016 1:24 AM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Great review! But what about conjugate gradient methods?</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468496590">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2468496590">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"><li class="post" id="post-2474907333"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/ihadanny/" class="user" data-action="profile" data-username="ihadanny">
+<img data-role="user-avatar" data-user="145634690" src="./avatar92(2).jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/ihadanny/" data-action="profile" data-username="ihadanny" data-role="username">ihadanny</a></span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468496590" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Kolbasin Vladyslav</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2474907333" data-role="relative-time" class="time-ago" title="Sunday, January 24, 2016 8:13 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>agree, thanks a lot Sebastian!</p><p>Another question - coordinate descent methods are much simpler to implement. Are they totally out of fashion/un-competitive with the methods you described?</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2474907333">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2474907333">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"></ul>
+
+</li><li class="post" id="post-2468810073"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/sebastianruder/" class="user" data-action="profile" data-username="sebastianruder">
+<img data-role="user-avatar" data-user="14938262" src="./avatar92(1).jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/sebastianruder/" data-action="profile" data-username="sebastianruder" data-role="username">Sebastian Ruder</a></span>
+<span class="badge moderator">Mod</span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468496590" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Kolbasin Vladyslav</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468810073" data-role="relative-time" class="time-ago" title="Thursday, January 21, 2016 4:31 AM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Thanks! Good point. From my understanding, conjugate gradient (CG) methods seem to be similarly motivated as momentum, i.e. accelerating convergence by reducing oscillation, but seem to be less robust and require more storage and are thus less often used in the literature. Do correct me if I'm wrong or if there are more recent CG-based approaches competitive with one of the SGD optimizers.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468810073">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2468810073">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"><li class="post" id="post-2470288304"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/kolbasinvladyslav/" class="user" data-action="profile" data-username="kolbasinvladyslav">
+<img data-role="user-avatar" data-user="192901034" src="./noavatar92.png" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/kolbasinvladyslav/" data-action="profile" data-username="kolbasinvladyslav" data-role="username">Kolbasin Vladyslav</a></span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468810073" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Sebastian Ruder</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2470288304" data-role="relative-time" class="time-ago" title="Friday, January 22, 2016 1:29 AM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>As I know  BFGS &amp; Limited-memory BFGS are most powerful and used in practice methods from second-order methods.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2470288304">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2470288304">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"></ul>
+
+</li><li class="post" id="post-2469795773"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/kshitijlauria/" class="user" data-action="profile" data-username="kshitijlauria">
+<img data-role="user-avatar" data-user="193000211" src="./noavatar92.png" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/kshitijlauria/" data-action="profile" data-username="kshitijlauria" data-role="username">Kshitij Lauria</a></span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468810073" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Sebastian Ruder</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2469795773" data-role="relative-time" class="time-ago" title="Thursday, January 21, 2016 8:05 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>CG is motivated by second-order methods eg. Newton's method.</p><p>Second-order methods incorporate the second-derivative when taking each step, and therefore converge after much fewer steps. The problem is, computing and storing Hessian matrices is prohibitive for large datasets.</p><p>CG solves this problem by expressing all uses of the Hessian matrix in terms of its product with a given vector. This Hessian-vector product can be computed (actually, approximated) using two directional derivative computations (ie. backpropagations).</p><p>In summary: second-order methods are much more well-motivated than the momentum heuristic; CG methods approximate them using directional derivatives alone.</p><p>Search for Hessian-free neural network learning.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2469795773">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2469795773">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"></ul>
+
+</li></ul>
+
+</li></ul>
+
+</li><li class="post" id="post-2467988458"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/dmitrytuzoff/" class="user" data-action="profile" data-username="dmitrytuzoff">
+<img data-role="user-avatar" data-user="144078733" src="./avatar92(3).jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/dmitrytuzoff/" data-action="profile" data-username="dmitrytuzoff" data-role="username">Dmitry Tuzoff</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2467988458" data-role="relative-time" class="time-ago" title="Wednesday, January 20, 2016 7:45 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Great review! What about Polyak averaging? Nando de Freitas seems to be a big apologist of it.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2467988458">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2467988458">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"><li class="post" id="post-2468230430"><div role="alert"></div>
+<div data-role="post-content" class="post-content">
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+<li class="" role="menu">
+<a class="dropdown-toggle" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+</li>
+</ul>
+<div class="indicator"></div>
+
+<div class="avatar hovercard">
+<a href="https://disqus.com/by/sebastianruder/" class="user" data-action="profile" data-username="sebastianruder">
+<img data-role="user-avatar" data-user="14938262" src="./avatar92(1).jpg" alt="Avatar">
+</a>
+</div>
+<div class="post-body">
+<header>
+<span class="post-byline">
+<span class="author publisher-anchor-color"><a href="https://disqus.com/by/sebastianruder/" data-action="profile" data-username="sebastianruder" data-role="username">Sebastian Ruder</a></span>
+<span class="badge moderator">Mod</span>
+
+<span><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2467988458" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Dmitry Tuzoff</a></span>
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+<a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468230430" data-role="relative-time" class="time-ago" title="Wednesday, January 20, 2016 10:53 PM">2 months ago</a>
+</span>
+
+</header>
+
+<div class="post-body-inner">
+<div class="post-message-container" data-role="message-container">
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+<p>Thanks! Definitely a good addition! I didn't know Nando de Freitas was a proponent of it. I haven't seen Polyak averaging or related methods like stochastic average gradient or stochastic variance reduced gradient being applied to neural networks, which is the main reason why I didn't include them here.</p>
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+<menu>
+
+<li class="voting" data-role="voting">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" data-action="downvote" title="Vote down">
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+</span>
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="reply" data-role="reply-link">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="http://sebastianruder.com/optimizing-gradient-descent/#comment-2468230430">Link</a></li>
+</ul>
+</li>
+
+<li class="realtime" data-role="realtime-notification:2468230430">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" class="btn btn-small"></a>
+</li>
+
+</menu>
+</footer>
+</div>
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+<ul data-role="children" class="children"></ul>
+
+</li></ul>
+
+</li></ul>
+
+<div class="load-more" data-role="more" style="display:none">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" data-action="more-posts" class="btn">Load more comments</a>
+</div>
+</div>
+
+</section>
+
+<div id="placement-bottom" data-tracking-area="discovery-south"><div class="post-list" style="height: 0px; visibility: hidden;"></div></div>
+
+<div id="footer" data-tracking-area="footer">
+<ul class="disqus-footer">
+<li class="logo disqus-footer__item"><a href="https://disqus.com/" rel="nofollow" title="Powered by Disqus">Powered by Disqus</a></li>
+<li id="thread-subscribe-button" class="email disqus-footer__item"> 
+<div class="default">
+<a href="http://disqus.com/embed/comments/?base=default&amp;version=85ba7336856f5be9db0e468752c2dad5&amp;f=sebastianruder&amp;t_u=http%3A%2F%2Fsebastianruder.com%2Foptimizing-gradient-descent%2F&amp;t_d=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;t_t=An%20overview%20of%20gradient%20descent%20optimization%20algorithms&amp;s_o=default#" rel="nofollow" data-action="subscribe" title="Subscribe and get email updates from this discussion"><i aria-hidden="true" class="icon icon-mail"></i><span class="clip">Subscribe</span> <i aria-hidden="true" class="icon icon-checkmark"></i></a>
+</div>
+<div class="form">
+<div class="input-wrapper"><input id="thread-subscribe-email" type="email" placeholder="yourname@email.com"></div>
+</div>
+</li>
+<li class="install disqus-footer__item">
+<a href="https://publishers.disqus.com/engage?utm_source=sebastianruder&amp;utm_medium=Disqus-Footer" rel="nofollow" target="_blank">
+<i aria-hidden="true" class="icon icon-disqus"></i>
+<span class="clip hidden-sm">Add Disqus to your site</span>
+<span class="clip visible-sm hidden-xs">Add Disqus</span>
+<span class="clip visible-xs">Add</span>
+</a>
+</li>
+<li class="privacy disqus-footer__item">
+<a href="https://help.disqus.com/customer/portal/articles/1657951?utm_source=disqus&amp;utm_medium=embed-footer&amp;utm_content=privacy-btn" rel="nofollow" target="_blank">
+<i aria-hidden="true" class="icon icon-lock"></i>
+<span class="clip">Privacy</span>
+</a>
+</li>
+</ul>
+</div>
+</div></body></html>
