@@ -1,3 +1,5 @@
+#
+
 from collections import OrderedDict
 from sklearn import linear_model, decomposition, datasets
 
@@ -15,6 +17,8 @@ class LR(object):
         self.Y = self.getY()
         self.theta = [0 for i in range(0, self.m)]
         self.b = 0
+
+        self.scikit_lr = None
 
     def getX(self):
         X = []
@@ -101,17 +105,31 @@ class LR(object):
         return dataframe
 
     def fit(self):
-        lr = linear_model.LogisticRegression()
-        lr.fit(self.X, self.Y)
-        print lr.get_params()
-        print 'weights:', lr.coef_
+        self.scikit_lr = linear_model.LogisticRegression()
+        self.scikit_lr.fit(self.X, self.Y)
+        print self.scikit_lr.get_params()
+        print 'weights:', self.scikit_lr.coef_
         print 'ture Y:', self.Y
-        print 'result:', lr.predict(self.X)
-        print lr.predict_proba(self.X)
+        print 'result:', self.scikit_lr.predict(self.X)
+        print 'probability:', self.scikit_lr.predict_proba(self.X)
+
+
+    def empirical_error(self):
+        Y_estimation = self.scikit_lr.predict(self.X)
+        errcnt = 0
+        i = 0
+        while i < len(self.X):
+            xi = self.X[i]
+            yi = self.Y[i]
+            if not yi == Y_estimation[i]:
+                errcnt += 1
+            i += 1
+        print "errcnt", errcnt
+        return errcnt
 
 
 if __name__ == '__main__':
     lr = LR()
     lr.read()
+    lr.fit()
     print 'read is done'
-    lr.fit() #weights都很小 L2

@@ -131,7 +131,7 @@ class LR(object):
         print "\nt=", t - 1
         return theta_t, b_t
 
-    def momentum(self, theta_t=(), b_t=0, threshold=1E-5, eta=1E-3):
+    def momentum(self, theta_t=(), b_t=0, threshold=1E-3, eta=1E-3):
         maxvari = 5
         vtheta_t = [0 for i in range(0, len(theta_t))]
         vb_t = 0
@@ -192,18 +192,18 @@ class LR(object):
         print "\nt=", t-1
         return theta_t, b_t
 
-    def fit(self, threshold=1E-4, eta=1E-3):
+    def fit(self, threshold=1E-2, eta=1E-1):
         theta = self.theta
         b = self.b
-        print "=================================================================="
-        print "BGD"
-        print "=================================================================="
-        self.theta, self.b = self.BGD(theta,b, threshold=threshold, eta=eta)
-        self.empiricalerror = self.empirical_error()
-        print "theta=", self.theta
-        print "b=", self.b
-        print "empiricalerror=", self.empiricalerror
-        print "=================================================================="
+        # print "=================================================================="
+        # print "BGD"
+        # print "=================================================================="
+        # self.theta, self.b = self.BGD(theta,b, threshold=threshold, eta=eta)
+        # self.empiricalerror = self.empirical_error()
+        # print "theta=", self.theta
+        # print "b=", self.b
+        # print "empiricalerror=", self.empiricalerror
+        # print "=================================================================="
         print ""
         print ""
         print "=================================================================="
