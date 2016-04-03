@@ -44,6 +44,16 @@ class LR(object):
         return self.normalizeddata.values()[-1]
 
     @staticmethod
+    def inner_product(varr1=(), varr2=()):
+        ip = 0.0
+        n = len(varr1)
+        i = 0
+        while i < n:
+            ip += varr1[i] * varr2[i]
+            i += 1
+        return ip
+
+    @staticmethod
     def logit(x=(), theta=(), b=0):
         i = 0
         innerproduct = 0.0
@@ -74,6 +84,15 @@ class LR(object):
     @staticmethod
     def vsquare(varr):
         return LR.vpower(varr, 2)
+
+    @staticmethod
+    def vsub(x1=(), x2=()):
+        i = 0
+        vres = []
+        while i < len(x1):
+            vres.append(x1[i] - x2[i])
+            i += 1
+        return vres
 
     @staticmethod
     def vadd(x1=(), x2=()):
@@ -110,6 +129,40 @@ class LR(object):
             vsum += Y[i] - LR.logit(X[i], theta_t, b_t)
             i += 1
         return vsum
+
+    @staticmethod
+    def line_search(x_n=(), s_n=()):
+        alpha_n = 0.0
+        return alpha_n
+        pass
+
+    @staticmethod
+    def cg_beta_update(delta_x_t=(), delta_x_n=(), s_t=(), method="PR"):
+        # Fletcher–Reeves
+        if method == "FR":
+            beta_n = LR.inner_product(delta_x_n, delta_x_n) / LR.inner_product(delta_x_t, delta_x_t)
+        # Polak–Ribiere
+        elif method == "PR":
+            beta_n = LR.inner_product(delta_x_n, LR.vsub(delta_x_n, delta_x_t)) / LR.inner_product(delta_x_t, delta_x_t)
+        # Hestenes-Stiefel
+        elif method == "HS":
+            diff_delta_x = LR.vsub(delta_x_n, delta_x_t)
+            beta_n = - LR.inner_product(delta_x_n, diff_delta_x) / LR.inner_product(s_t, diff_delta_x)
+        # Dai–Yuan
+        elif method == "DY":
+            beta_n = - LR.inner_product(delta_x_n, delta_x_n) / LR.inner_product(s_t, LR.vsub(delta_x_n, delta_x_t))
+        return beta_n
+
+    @staticmethod
+    def cg_update(x_n=(), alpha_n=0.0, beta_n=0.0, s_n=(), grad_n=()):
+        n = len(x_n)
+        d_n = [-g for g in grad_n]  # update direction
+        s_n = LR.vadd(d_n, LR.vtimes(beta_n, s_n))
+        alpha_n = LR.line_search(x_n, s_n)
+        x_n = LR.vadd(x_n, LR.vtimes(alpha_n, s_n))
+        return x_n, s_n
+
+    def CG(self, theta_t, b_t, threshold=1E-5):
 
     def BGD(self, theta_t=(), b_t=0, threshold=1E-5, eta=1E-3):
         maxvari = 5
@@ -153,7 +206,7 @@ class LR(object):
             # print 'b_t', b_t
             if t % 10000 == 0:
                 print ".",
-        print "\nt=", t-1
+        print "\nt=", t - 1
         return theta_t, b_t
 
     def adam(self, theta_t=(), b_t=0, beta_m=0.9, beta_v=0.999, eta=1E-3, epsilon=1E-8, threshold=1E-5, m_t=(), v_t=()):
@@ -189,7 +242,7 @@ class LR(object):
             # print 't', t
             if t % 10000 == 0:
                 print ".",
-        print "\nt=", t-1
+        print "\nt=", t - 1
         return theta_t, b_t
 
     def fit(self, threshold=1E-2, eta=1E-1):
