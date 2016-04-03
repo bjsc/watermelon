@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from scipy.optimize.linesearch import line_search_wolfe2, line_search_wolfe1
 
 import math
 
@@ -52,6 +53,12 @@ class LR(object):
             ip += varr1[i] * varr2[i]
             i += 1
         return ip
+
+
+    @staticmethod
+    def norm_Euclidean(varr=()):
+        return LR.inner_product(varr, varr)
+
 
     @staticmethod
     def logit(x=(), theta=(), b=0):
@@ -132,26 +139,31 @@ class LR(object):
 
     @staticmethod
     def line_search(x_n=(), s_n=()):
-        alpha_n = 0.0
+        def f():
+            pass
+        def fprime():
+            pass
+        alpha_n = line_search_wolfe1(f, fprime, x_n, s_n)
         return alpha_n
-        pass
 
     @staticmethod
-    def cg_beta_update(delta_x_t=(), delta_x_n=(), s_t=(), method="PR"):
-        # Fletcher–Reeves
+    def cg_beta_update(grad_t=(), grad_n=(), s_t=(), method="PR"):
+        beta_n = 0.0
+        # Fletcher-Reeves
         if method == "FR":
-            beta_n = LR.inner_product(delta_x_n, delta_x_n) / LR.inner_product(delta_x_t, delta_x_t)
-        # Polak–Ribiere
+            beta_n = LR.inner_product(grad_n, grad_n) / LR.inner_product(grad_t, grad_t)
+        # Polak-Ribiere
         elif method == "PR":
-            beta_n = LR.inner_product(delta_x_n, LR.vsub(delta_x_n, delta_x_t)) / LR.inner_product(delta_x_t, delta_x_t)
+            beta_n = LR.inner_product(grad_n, LR.vsub(grad_n, grad_t)) / LR.inner_product(grad_t, grad_t)
         # Hestenes-Stiefel
         elif method == "HS":
-            diff_delta_x = LR.vsub(delta_x_n, delta_x_t)
-            beta_n = - LR.inner_product(delta_x_n, diff_delta_x) / LR.inner_product(s_t, diff_delta_x)
-        # Dai–Yuan
+            diff_grad = LR.vsub(grad_n, grad_t)
+            beta_n = - LR.inner_product(grad_n, diff_grad) / LR.inner_product(s_t, diff_grad)
+        # Dai-Yuan
         elif method == "DY":
-            beta_n = - LR.inner_product(delta_x_n, delta_x_n) / LR.inner_product(s_t, LR.vsub(delta_x_n, delta_x_t))
-        return beta_n
+            beta_n = - LR.inner_product(grad_n, grad_n) / LR.inner_product(s_t, LR.vsub(grad_n, grad_t))
+        return max(beta_n, 0)
+
 
     @staticmethod
     def cg_update(x_n=(), alpha_n=0.0, beta_n=0.0, s_n=(), grad_n=()):
@@ -163,6 +175,7 @@ class LR(object):
         return x_n, s_n
 
     def CG(self, theta_t, b_t, threshold=1E-5):
+        pass
 
     def BGD(self, theta_t=(), b_t=0, threshold=1E-5, eta=1E-3):
         maxvari = 5
