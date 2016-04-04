@@ -54,11 +54,9 @@ class LR(object):
             i += 1
         return ip
 
-
     @staticmethod
     def norm_Euclidean(varr=()):
         return LR.inner_product(varr, varr)
-
 
     @staticmethod
     def logit(x=(), theta=(), b=0):
@@ -138,16 +136,25 @@ class LR(object):
         return vsum
 
     @staticmethod
-    def line_search(x_n=(), s_n=()):
+    def line_search(x_n=(), d_n=()):
         def f():
             pass
+
         def fprime():
             pass
-        alpha_n = line_search_wolfe1(f, fprime, x_n, s_n)
+
+        alpha_n = line_search_wolfe1(f, fprime, x_n, d_n)
         return alpha_n
 
     @staticmethod
-    def cg_beta_update(grad_t=(), grad_n=(), s_t=(), method="PR"):
+    def cg_update_d(grad_n=(), beta_t=.0, d_t=(), t=0):
+        d_n = [-g for g in grad_n]
+        if t > 0:
+            d_n = LR.vadd(d_n, LR.vtimes(beta_t, d_n))
+        return d_n
+
+    @staticmethod
+    def cg_update_beta(grad_t=(), grad_n=(), d_t=(), method="PR"):
         beta_n = 0.0
         # Fletcher-Reeves
         if method == "FR":
@@ -157,24 +164,25 @@ class LR(object):
             beta_n = LR.inner_product(grad_n, LR.vsub(grad_n, grad_t)) / LR.inner_product(grad_t, grad_t)
         # Hestenes-Stiefel
         elif method == "HS":
-            diff_grad = LR.vsub(grad_n, grad_t)
-            beta_n = - LR.inner_product(grad_n, diff_grad) / LR.inner_product(s_t, diff_grad)
+            y_t = LR.vsub(grad_n, grad_t)
+            beta_n = - LR.inner_product(grad_n, y_t) / LR.inner_product(d_t, y_t)
         # Dai-Yuan
         elif method == "DY":
-            beta_n = - LR.inner_product(grad_n, grad_n) / LR.inner_product(s_t, LR.vsub(grad_n, grad_t))
+            y_t = LR.vsub(grad_n, grad_t)
+            beta_n = - LR.inner_product(grad_n, grad_n) / LR.inner_product(d_t, y_t)
         return max(beta_n, 0)
 
-
     @staticmethod
-    def cg_update(x_n=(), alpha_n=0.0, beta_n=0.0, s_n=(), grad_n=()):
+    def cg_update(x_n=(), alpha_n=0.0, beta_n=0.0, d_t=(), grad_t=(), grad_n=(), t=0):
         n = len(x_n)
-        d_n = [-g for g in grad_n]  # update direction
-        s_n = LR.vadd(d_n, LR.vtimes(beta_n, s_n))
-        alpha_n = LR.line_search(x_n, s_n)
-        x_n = LR.vadd(x_n, LR.vtimes(alpha_n, s_n))
-        return x_n, s_n
+        d_n = LR.cg_update_d(grad_n, beta_n, d_t, t)
+        alpha_n = LR.line_search(x_n, d_n)
+        x_n = LR.vadd(x_n, LR.vtimes(alpha_n, d_n))
+        beta_n = LR.cg_update_beta(grad_t, grad_n, d_t)
+        return x_n, d_n, beta_n
 
     def CG(self, theta_t, b_t, threshold=1E-5):
+
         pass
 
     def BGD(self, theta_t=(), b_t=0, threshold=1E-5, eta=1E-3):
